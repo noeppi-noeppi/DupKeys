@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[35,)"
+license="The Apache License, Version 2.0"
+
+[[mods]]
+modId="dupkeys"
+version="${file.jarVersion}"
+displayName="Dupkeys"
+authors="noeppi_noeppi"
+description="""
+Virtual Keys
+"""
+
+[[dependencies.dupkeys]]
+    modId="forge"
+    mandatory=true
+    versionRange="[35.1,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.dupkeys]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.4,)"
+    ordering="NONE"
+    side="CLIENT"
