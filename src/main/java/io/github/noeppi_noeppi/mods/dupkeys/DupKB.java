@@ -1,8 +1,8 @@
 package io.github.noeppi_noeppi.mods.dupkeys;
 
-import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.KeyMapping;
 
-public class DupKB extends KeyBinding {
+public class DupKB extends KeyMapping {
 
     private final int id;
     
@@ -12,25 +12,24 @@ public class DupKB extends KeyBinding {
     }
 
     @Override
-    public void setPressed(boolean value) {
-        String kbId;
-        switch (this.id) {
-            case 1: kbId = DupConfig.kb1.get(); break;
-            case 2: kbId = DupConfig.kb2.get(); break;
-            case 3: kbId = DupConfig.kb3.get(); break;
-            case 4: kbId = DupConfig.kb4.get(); break;
-            case 5: kbId = DupConfig.kb5.get(); break;
-            case 6: kbId = DupConfig.kb6.get(); break;
-            case 7: kbId = DupConfig.kb7.get(); break;
-            case 8: kbId = DupConfig.kb8.get(); break;
-            default: kbId = null; break;
-        }
+    public void setDown(boolean value) {
+        String kbId = switch (this.id) {
+            case 1 -> DupConfig.kb1.get();
+            case 2 -> DupConfig.kb2.get();
+            case 3 -> DupConfig.kb3.get();
+            case 4 -> DupConfig.kb4.get();
+            case 5 -> DupConfig.kb5.get();
+            case 6 -> DupConfig.kb6.get();
+            case 7 -> DupConfig.kb7.get();
+            case 8 -> DupConfig.kb8.get();
+            default -> null;
+        };
         if (kbId != null) {
-            KeyBinding kb = KeyBinding.KEYBIND_ARRAY.get(kbId);
+            KeyMapping kb = KeyMapping.ALL.get(kbId);
             if (kb != null && !(kb instanceof DupKB)) {
-                kb.setPressed(value);
+                kb.setDown(value);
             }
         }
-        super.setPressed(value);
+        super.setDown(value);
     }
 }
