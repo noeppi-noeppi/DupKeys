@@ -1,28 +1,35 @@
 package io.github.noeppi_noeppi.mods.dupkeys;
 
+import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ClientRegistry;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+
+import javax.annotation.Nonnull;
 
 @Mod("dupkeys")
-public class DupKeys {
+public final class DupKeys extends ModX {
 
-    public static final String MODID = "dupkeys";
+    private static DupKeys instance;
     
     public DupKeys() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DupConfig.CLIENT_CONFIG);
-        //noinspection CodeBlock2Expr
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        });
+        instance = this;
+    }
+    
+    @Nonnull
+    public static DupKeys getInstance() {
+        return instance;
     }
 
+    @Override
+    protected void setup(FMLCommonSetupEvent event) {
+        
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
         ClientRegistry.registerKeyBinding(new DupKB(1));
