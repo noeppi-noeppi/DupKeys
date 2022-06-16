@@ -1,12 +1,12 @@
 package io.github.noeppi_noeppi.mods.dupkeys;
 
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 

@@ -1,21 +1,20 @@
 package io.github.noeppi_noeppi.mods.dupkeys;
 
 import com.google.gson.JsonPrimitive;
-import io.github.noeppi_noeppi.libx.annotation.config.RegisterMapper;
-import io.github.noeppi_noeppi.libx.config.ValidatorInfo;
-import io.github.noeppi_noeppi.libx.config.ValueMapper;
-import io.github.noeppi_noeppi.libx.config.gui.ConfigEditor;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.FriendlyByteBuf;
-
-import java.util.List;
+import net.minecraft.network.chat.Component;
+import org.moddingx.libx.annotation.config.RegisterMapper;
+import org.moddingx.libx.config.gui.ConfigEditor;
+import org.moddingx.libx.config.mapper.ValueMapper;
+import org.moddingx.libx.config.validator.ValidatorInfo;
 
 @RegisterMapper
-public class KeyMapper implements ValueMapper<String, JsonPrimitive> {
+public class KeyMapper implements ValueMapper<KeyString, JsonPrimitive> {
 
     @Override
-    public Class<String> type() {
-        return String.class;
+    public Class<KeyString> type() {
+        return KeyString.class;
     }
 
     @Override
@@ -24,27 +23,27 @@ public class KeyMapper implements ValueMapper<String, JsonPrimitive> {
     }
 
     @Override
-    public String fromJson(JsonPrimitive json) {
-        return json.getAsString();
+    public KeyString fromJson(JsonPrimitive json) {
+        return new KeyString(json.getAsString());
     }
 
     @Override
-    public JsonPrimitive toJson(String value) {
-        return new JsonPrimitive(value);
+    public JsonPrimitive toJson(KeyString value) {
+        return new JsonPrimitive(value.value());
     }
 
     @Override
-    public String fromNetwork(FriendlyByteBuf buffer) {
-        return buffer.readUtf();
+    public KeyString fromNetwork(FriendlyByteBuf buffer) {
+        return new KeyString(buffer.readUtf());
     }
 
     @Override
-    public void toNetwork(String value, FriendlyByteBuf buffer) {
-        buffer.writeUtf(value);
+    public void toNetwork(KeyString value, FriendlyByteBuf buffer) {
+        buffer.writeUtf(value.value());
     }
 
     @Override
-    public ConfigEditor<String> createEditor(ValidatorInfo<?> validator) {
-        return ConfigEditor.toggle(List.copyOf(KeyMapping.ALL.keySet()));
+    public ConfigEditor<KeyString> createEditor(ValidatorInfo<?> validator) {
+        return ConfigEditor.toggle(KeyMapping.ALL.keySet().stream().filter(id -> !id.startsWith("dupkeys.key.")).sorted().map(KeyString::new).toList(), k -> Component.literal(k.value()));
     }
 }

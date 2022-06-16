@@ -13,7 +13,7 @@ public class DupKB extends KeyMapping {
 
     @Override
     public void setDown(boolean value) {
-        String kbId = switch (this.id) {
+        KeyString kbId = switch (this.id) {
             case 1 -> DupConfig.virtual_key_1.orElse(null);
             case 2 -> DupConfig.virtual_key_2.orElse(null);
             case 3 -> DupConfig.virtual_key_3.orElse(null);
@@ -25,7 +25,7 @@ public class DupKB extends KeyMapping {
             default -> null;
         };
         if (kbId != null) {
-            KeyMapping kb = KeyMapping.ALL.get(kbId);
+            KeyMapping kb = KeyMapping.ALL.get(kbId.value());
             if (kb != null && !(kb instanceof DupKB)) {
                 kb.setDown(value);
             }
