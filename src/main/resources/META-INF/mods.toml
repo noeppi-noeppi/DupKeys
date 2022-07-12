@@ -30,6 +30,6 @@ Virtual Keys
 [[dependencies.dupkeys]]
     modId="libx"
     mandatory=true
-    versionRange="[1.19-4.0.1,)"
+    versionRange="[1.19-4.0.7,)"
     ordering="NONE"
     side="CLIENT"
